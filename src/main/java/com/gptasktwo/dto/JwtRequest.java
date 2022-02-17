@@ -11,6 +11,6 @@ public class JwtRequest {
 
     private String iss;
     private String sub;
-    private List<String> roles;
+    private List<Role> roles;
 
 }

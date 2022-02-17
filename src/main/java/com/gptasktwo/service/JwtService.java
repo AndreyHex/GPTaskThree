@@ -18,7 +18,7 @@ import java.util.Map;
 public class JwtService {
 
     private final SecretKey key;
-    private final long expirationTime = 5000;
+    private final long expirationTime = 5000000000L;
 
     public JwtService() {
         this.key = Keys.hmacShaKeyFor(System.getenv("SECRET_KEY").getBytes(StandardCharsets.UTF_8));
