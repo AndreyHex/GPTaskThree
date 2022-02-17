@@ -1,0 +1,148 @@
+---
+openapi: 3.0.0
+info:
+  title: Developer API
+  description: Api for task two
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: localhost:8080/api
+  description: Local PC
+paths:
+  /developers/{id}:
+    get:
+      summary: find a developer by id
+      description: |
+        Finding a developer if he exists
+      operationId: findById
+      parameters:
+      - name: id
+        in: path
+        description: developer id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: find a developer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Developer'
+        "400":
+          description: invalid input or already exists
+        "404":
+          description: developer not found
+    put:
+      summary: update a exists developer by id
+      description: |
+        Updating a developer if he exists
+      operationId: updateById
+      parameters:
+      - name: id
+        in: path
+        description: developer id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: a developer have benn updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Developer'
+        "404":
+          description: developer not found
+    delete:
+      summary: delete a exists developer by id
+      description: |
+        Deliting a developer if he exists
+      operationId: deleteById
+      parameters:
+      - name: id
+        in: path
+        description: developer id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: a developer have benn deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Developer'
+        "404":
+          description: developer not found
+  /developers:
+    post:
+      summary: create a developer
+      description: Create new developer in the service
+      operationId: createDeveloper
+      requestBody:
+        description: Developer to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Developer'
+      responses:
+        "201":
+          description: developer created
+        "400":
+          description: invalid input, object invalid
+  /developers/name/{name}:
+    get:
+      summary: finding developers by name
+      description: Find all developers by name
+      operationId: findByName
+      parameters:
+      - name: name
+        in: path
+        description: developer name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: find a developer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Developer'
+        "404":
+          description: developer not found
+components:
+  schemas:
+    Developer:
+      required:
+      - email
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 123
+        name:
+          type: string
+          example: John Smith
+        email:
+          type: string
+          format: email
+          example: myemail@mail.com
