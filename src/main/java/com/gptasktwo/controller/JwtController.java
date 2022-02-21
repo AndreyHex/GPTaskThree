@@ -21,7 +21,9 @@ public class JwtController {
 
     private final JwtService jwtService;
 
-    @ApiResponse(content = @Content(mediaType = "application/json", schema = @Schema(implementation = JwtResponse.class)))
+    @ApiResponse(responseCode = "200",
+                content = @Content(
+                    mediaType = "application/json", schema = @Schema(implementation = JwtResponse.class)))
     @SecurityRequirements
     @PostMapping("/builder-jwt")
     public ResponseEntity builderJwt(@RequestBody JwtRequest jwtRequest) {
