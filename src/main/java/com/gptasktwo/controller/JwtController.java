@@ -3,6 +3,10 @@ package com.gptasktwo.controller;
 import com.gptasktwo.dto.JwtRequest;
 import com.gptasktwo.dto.JwtResponse;
 import com.gptasktwo.service.JwtService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +21,8 @@ public class JwtController {
 
     private final JwtService jwtService;
 
+    @ApiResponse(content = @Content(mediaType = "application/json", schema = @Schema(implementation = JwtResponse.class)))
+    @SecurityRequirements
     @PostMapping("/builder-jwt")
     public ResponseEntity builderJwt(@RequestBody JwtRequest jwtRequest) {
         return ResponseEntity.ok(
